@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Prueba de concepto (POC) tiene como objetivo demostrar la comunicación entre microservicios utilizando el transporte TCP nativo de NestJS, sin necesidad de utilizar protocolos HTTP internos ni brokers de mensajería como RabbitMQ, Kafka o NATS.
+Prueba de concepto (POC) para demostrar la comunicación entre microservicios utilizando el transporte TCP nativo de NestJS, sin necesidad de utilizar protocolos HTTP internos ni brokers de mensajería como RabbitMQ, Kafka o NATS.
 
 ## Objetivo
 
