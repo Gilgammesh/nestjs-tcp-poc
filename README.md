@@ -46,7 +46,7 @@ Microservicio responsable de la gestión de órdenes.
 
 ```mermaid
 flowchart TD
-    A[Cliente HTTP] -->|HTTP GET /orders| B[MS-ORDERS HTTP<br/>localhost:3000]
+    A[Cliente HTTP] -->|HTTP GET /orders| B[MS-ORDERS HTTP<br/>localhost:3001]
 
     B -->|TCP ClientProxy.send<br/>cmd: get_user_by_id| C[MS-AUTH TCP<br/>127.0.0.1:3100]
 
@@ -61,12 +61,11 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Cliente externo]
-    -->|HTTP| B[Ingress / API Gateway]
+    A[Cliente externo] -->|HTTP| B[Ingress / API Gateway]
 
     B -->|HTTP GET /orders| C[Service ms-orders<br/>ClusterIP]
 
-    C --> D[Pod ms-orders<br/>HTTP: 3000]
+    C --> D[Pod ms-orders<br/>HTTP: 3001]
 
     D -->|TCP host: ms-auth<br/>port: 3100| E[Service ms-auth<br/>ClusterIP]
 
@@ -121,7 +120,12 @@ spec:
   selector:
     app: ms-auth
   ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
     - name: tcp
+      protocol: TCP
       port: 3100
       targetPort: 3100
 ```
@@ -130,7 +134,9 @@ spec:
 
 Al utilizar un Service:
 
+```text
 ms-auth
+```
 
 Kubernetes distribuirá automáticamente las solicitudes TCP entre múltiples Pods disponibles.
 
